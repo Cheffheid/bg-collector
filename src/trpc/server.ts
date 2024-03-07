@@ -25,6 +25,7 @@ const createContext = cache(() => {
 
   return createTRPCContext({
     headers: heads,
+    currentUser: null,
   });
 });
 
