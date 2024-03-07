@@ -3,14 +3,6 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const boardgameRouter = createTRPCRouter({
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
-    }),
-
   create: publicProcedure
     .input(z.object({ name: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
@@ -27,9 +19,7 @@ export const boardgameRouter = createTRPCRouter({
       });
     }),
 
-  getLatest: publicProcedure.query(({ ctx }) => {
-    return ctx.db.boardgame.findFirst({
-      orderBy: { createdAt: "desc" },
-    });
+  getAll: publicProcedure.query(({ ctx }) => {
+    return ctx.db.boardgame.findMany();
   }),
 });
