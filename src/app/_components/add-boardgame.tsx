@@ -1,18 +1,18 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { api } from "~/trpc/react";
 
 export function AddBoardgame() {
-  const router = useRouter();
   const [name, setName] = useState("");
+
+  const ctx = api.useUtils();
 
   const addBoardgame = api.boardgame.create.useMutation({
     onSuccess: () => {
-      router.refresh();
       setName("");
+      void ctx.boardgame.getAllFromUser.invalidate();
     },
   });
 
