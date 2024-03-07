@@ -22,14 +22,14 @@ export function AddBoardgame() {
         e.preventDefault();
         addBoardgame.mutate({ name });
       }}
-      className="flex flex-col gap-2"
+      className="flex"
     >
       <input
         type="text"
-        placeholder="Title"
+        placeholder="Add a game!"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full rounded-full px-4 py-2 text-black"
+        className="w-full px-4 py-2 text-black"
       />
       <button
         type="submit"

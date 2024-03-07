@@ -4,6 +4,7 @@ import { unstable_noStore as noStore } from "next/cache";
 
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { Collection } from "./_components/collection";
+import { AddBoardgame } from "./_components/add-boardgame";
 
 export default function Home() {
   noStore();
@@ -20,6 +21,7 @@ export default function Home() {
         </div>
       </div>
       <div className="container mx-auto flex flex-col items-center justify-center gap-12 px-4 py-16">
+        {!!user.isSignedIn && <AddBoardgame />}
         {!!user.isSignedIn && <Collection />}
       </div>
     </main>
