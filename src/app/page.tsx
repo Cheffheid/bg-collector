@@ -12,15 +12,17 @@ export default function Home() {
   const user = useUser();
 
   return (
-    <main className="min-h-screen bg-slate-100">
-      <div className="flex px-2 py-1">
-        <h1>Boardgame Collector</h1>
-        <div className="ml-auto">{!!user.isSignedIn && <UserButton />}</div>
-      </div>
-      <div className="container mx-auto flex flex-col items-center justify-center gap-12 px-4 py-16">
-        {!user.isSignedIn && <SignInButton />}
-        {!!user.isSignedIn && <AddBoardgame />}
-        {!!user.isSignedIn && <Collection />}
+    <main className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+      <div className="flex h-screen flex-col justify-start">
+        <header className="flex items-center justify-between py-10 print:hidden">
+          <h1>Boardgame Collector</h1>
+          <div className="ml-auto">{!!user.isSignedIn && <UserButton />}</div>
+        </header>
+        <div className="container mx-auto flex flex-col items-center divide-y divide-gray-200 dark:divide-gray-700">
+          {!user.isSignedIn && <SignInButton />}
+          {!!user.isSignedIn && <AddBoardgame />}
+          {!!user.isSignedIn && <Collection />}
+        </div>
       </div>
     </main>
   );

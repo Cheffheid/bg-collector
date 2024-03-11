@@ -20,7 +20,7 @@ export const BoardgameView = (props: Boardgame) => {
         {name}
         <button
           type="button"
-          className=""
+          className="font-bold text-rose-600"
           onClick={() => {
             deleteBoardgame.mutate({ id });
           }}

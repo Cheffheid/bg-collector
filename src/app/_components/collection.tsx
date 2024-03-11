@@ -7,7 +7,7 @@ export function Collection() {
   const { data } = api.boardgame.getAllFromUser.useQuery();
 
   return (
-    <div className="container mx-auto md:max-w-5xl">
+    <div className="mx-auto w-full py-4 md:w-3/5">
       {data?.map((game) => <BoardgameView {...game} key={game.id} />)}
     </div>
   );

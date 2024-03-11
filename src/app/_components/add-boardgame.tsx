@@ -22,21 +22,21 @@ export function AddBoardgame() {
         e.preventDefault();
         addBoardgame.mutate({ name });
       }}
-      className="flex"
+      className="relative flex w-full items-center justify-center pt-4 md:w-3/5"
     >
       <input
         type="text"
         placeholder="Add a game!"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full px-4 py-2 text-black"
+        className="grow px-4 py-2 text-black"
       />
       <button
         type="submit"
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold transition hover:bg-white/20"
+        className="absolute right-0 px-10 py-2 font-semibold transition hover:bg-slate-600 hover:text-white"
         disabled={addBoardgame.isLoading}
       >
-        {addBoardgame.isLoading ? "Submitting..." : "Submit"}
+        {addBoardgame.isLoading ? "Submitting..." : "Add"}
       </button>
     </form>
   );
