@@ -22,7 +22,7 @@ export function AddBoardgame() {
         e.preventDefault();
         addBoardgame.mutate({ name });
       }}
-      className="relative flex w-full items-center justify-center pt-4 md:w-3/5"
+      className="relative mb-2 flex w-full items-center justify-center pt-4 md:w-3/5"
     >
       <input
         type="text"
