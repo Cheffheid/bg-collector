@@ -5,6 +5,8 @@ import { unstable_noStore as noStore } from "next/cache";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { Collection } from "./_components/collection";
 import { AddBoardgame } from "./_components/add-boardgame";
+import { Suspense } from "react";
+import { CollectionSkeleton } from "./_components/collectionSkeleton";
 
 export default function Home() {
   noStore();
@@ -21,7 +23,11 @@ export default function Home() {
         <div className="container mx-auto flex flex-col items-center divide-y divide-gray-200 dark:divide-gray-700">
           {!user.isSignedIn && <SignInButton />}
           {!!user.isSignedIn && <AddBoardgame />}
-          {!!user.isSignedIn && <Collection />}
+          {!!user.isSignedIn && (
+            <Suspense fallback={<CollectionSkeleton />}>
+              <Collection />
+            </Suspense>
+          )}
         </div>
       </div>
     </main>
