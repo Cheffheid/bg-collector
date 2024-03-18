@@ -8,7 +8,11 @@ export function Collection() {
 
   return (
     <div className="mx-auto w-full py-4 md:w-3/5">
-      {data?.map((game) => <BoardgameView {...game} key={game.id} />)}
+      {!data.length && (
+        <p>You&apos;ve not added anything to your collection yet!</p>
+      )}
+      {!!data.length &&
+        data.map((game) => <BoardgameView {...game} key={game.id} />)}
     </div>
   );
 }
