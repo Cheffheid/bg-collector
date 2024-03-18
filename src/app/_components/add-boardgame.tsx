@@ -20,7 +20,10 @@ export function AddBoardgame() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        addBoardgame.mutate({ name });
+
+        if ("" !== name) {
+          addBoardgame.mutate({ name });
+        }
       }}
       className="relative mb-2 flex w-full items-center justify-center pt-4 md:w-3/5"
     >
@@ -29,6 +32,15 @@ export function AddBoardgame() {
         placeholder="Add a game!"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        onKeyDown={(e) => {
+          if ("Enter" === e.key) {
+            e.preventDefault();
+
+            if ("" !== name) {
+              addBoardgame.mutate({ name });
+            }
+          }
+        }}
         className="grow bg-slate-50 px-4 py-2 text-black transition focus:bg-white"
       />
       <button
