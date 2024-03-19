@@ -4,10 +4,10 @@ import Link from "next/link";
 export function Header() {
   return (
     <header className="flex items-center justify-between py-10 print:hidden">
-      <h1 className="flex items-center text-4xl">
-        🎲
+      <p className="flex items-center text-4xl">
+        <span aria-hidden="true">🎲</span>
         <span className="ml-2 text-xl font-bold">Boardgame Collector</span>
-      </h1>
+      </p>
       <div className="ml-5 flex">
         <Link href="/">Home</Link>
         <Link href="/scoring" className="ml-8">
