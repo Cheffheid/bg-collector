@@ -1,9 +1,7 @@
-import { UserButton, useUser } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
 export function Header() {
-  const user = useUser();
-
   return (
     <header className="flex items-center justify-between py-10 print:hidden">
       <h1 className="flex items-center text-4xl">
@@ -16,7 +14,9 @@ export function Header() {
           Scoring Helpers
         </Link>
       </div>
-      <div className="ml-auto">{!!user.isSignedIn && <UserButton />}</div>
+      <div className="ml-auto">
+        <UserButton />
+      </div>
     </header>
   );
 }
