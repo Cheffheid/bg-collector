@@ -1,7 +1,5 @@
 "use client";
 
-import { unstable_noStore as noStore } from "next/cache";
-
 import { SignInButton, useUser } from "@clerk/nextjs";
 import { Collection } from "./_components/collection";
 import { AddBoardgame } from "./_components/add-boardgame";
@@ -10,8 +8,6 @@ import { CollectionSkeleton } from "./_components/collectionSkeleton";
 import { Header } from "./_components/header";
 
 export default function Home() {
-  noStore();
-
   const user = useUser();
 
   return (

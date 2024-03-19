@@ -1,5 +1,3 @@
-"use client";
-
 import { api } from "~/trpc/react";
 import { BoardgameView } from "./boardgameview";
 
