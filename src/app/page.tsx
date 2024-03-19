@@ -19,15 +19,24 @@ export default function Home() {
       <div className="flex h-screen flex-col justify-start">
         <Header />
         <div className="container mx-auto flex flex-col items-center divide-y divide-gray-200 dark:divide-gray-700">
-          {!user.isSignedIn && <SignInButton />}
-          {!!user.isSignedIn && <AddBoardgame />}
-          {!!user.isSignedIn && (
-            <Suspense fallback={<CollectionSkeleton />}>
-              <Collection />
-            </Suspense>
-          )}
+          <HomeContent isSignedIn={user.isSignedIn} />
         </div>
       </div>
     </main>
+  );
+}
+
+function HomeContent(props: { isSignedIn: boolean | undefined }) {
+  if (!props.isSignedIn) {
+    return <SignInButton />;
+  }
+
+  return (
+    <>
+      <AddBoardgame />
+      <Suspense fallback={<CollectionSkeleton />}>
+        <Collection />
+      </Suspense>
+    </>
   );
 }
