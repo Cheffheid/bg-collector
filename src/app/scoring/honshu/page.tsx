@@ -27,23 +27,6 @@ export default function Honshu() {
               Scoring in Honshu is relatively straightforward, and works like
               this:
             </p>
-            <ul className="list-disc text-left">
-              <li>For each forest square the players score 1 point.</li>
-              <li>
-                For each town square the players score 1 point, but only the
-                biggest town district of each player is counted. A district
-                consists of all orthogonally adjacent squares of the same area
-                type.
-              </li>
-              <li>
-                For each factory which can be given a resource from a matching
-                production square the players score 2/3/4 points.
-              </li>
-              <li>
-                The first lake square of each lake district is worth 0 and each
-                consecutive square is worth 3 points.
-              </li>
-            </ul>
           </div>
           <HonshuPointCalculator />
         </div>
@@ -133,69 +116,99 @@ function HonshuPointCalculator() {
 
   return (
     <form>
-      <div>
-        <label>Forests</label>
-        <input
-          type="number"
-          value={formValues.forests}
-          name="forests"
-          onChange={(e) => handleInputChange(e)}
-        />
-      </div>
-
-      <div>
-        <label>Largest City</label>
-        <input
-          type="number"
-          value={formValues.city}
-          name="city"
-          onChange={(e) => handleInputChange(e)}
-        />
-      </div>
-
-      <div className="flex">
-        <label className="block">
-          2 Point Factories
-          <br />
+      <div className="p-2">
+        <p className="mb-4">
+          For each forest square the players score 1 point.
+        </p>
+        <div>
+          <label>Forests</label>
           <input
+            className="ml-2 p-1"
             type="number"
-            value={formValues.factories.twopoint}
-            name="factories[twopoint]"
+            value={formValues.forests}
+            name="forests"
             onChange={(e) => handleInputChange(e)}
           />
-        </label>
-        <label className="block">
-          3 Point Factories
-          <br />
-          <input
-            type="number"
-            value={formValues.factories.threepoint}
-            name="factories[threepoint]"
-            onChange={(e) => handleInputChange(e)}
-          />
-        </label>
-        <label className="block">
-          4 Point Factories
-          <br />
-          <input
-            type="number"
-            value={formValues.factories.fourpoint}
-            name="factories[fourpoint]"
-            onChange={(e) => handleInputChange(e)}
-          />
-        </label>
+        </div>
       </div>
 
-      <div>
-        <label>Lakes</label>
-        <input
-          type="number"
-          value={formValues.lakes}
-          name="lakes"
-          onChange={(e) => handleInputChange(e)}
-        />
+      <div className="p-2">
+        <p className="mb-4">
+          For each town square the players score 1 point, but only the biggest
+          town district of each player is counted. A district consists of all
+          orthogonally adjacent squares of the same area type.
+        </p>
+        <div>
+          <label>Largest City</label>
+          <input
+            className="ml-2 p-1"
+            type="number"
+            value={formValues.city}
+            name="city"
+            onChange={(e) => handleInputChange(e)}
+          />
+        </div>
       </div>
-      <p>Total: {points}</p>
+
+      <div className="p-2">
+        <p className="mb-4">
+          For each factory which can be given a resource from a matching
+          production square the players score 2/3/4 points.
+        </p>
+        <div className="flex">
+          <label className="block w-1/3">
+            2 Point Factories
+            <br />
+            <input
+              className="p-1"
+              type="number"
+              value={formValues.factories.twopoint}
+              name="factories[twopoint]"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </label>
+          <label className="block w-1/3">
+            3 Point Factories
+            <br />
+            <input
+              className="p-1"
+              type="number"
+              value={formValues.factories.threepoint}
+              name="factories[threepoint]"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </label>
+          <label className="block w-1/3">
+            4 Point Factories
+            <br />
+            <input
+              className="p-1"
+              type="number"
+              value={formValues.factories.fourpoint}
+              name="factories[fourpoint]"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </label>
+        </div>
+      </div>
+
+      <div className="p-2">
+        <p className="mb-4">
+          The first lake square of each lake district is worth 0 and each
+          consecutive square is worth 3 points.
+        </p>
+        <div>
+          <label>Lakes</label>
+          <input
+            className="ml-2 p-1"
+            type="number"
+            value={formValues.lakes}
+            name="lakes"
+            onChange={(e) => handleInputChange(e)}
+          />
+        </div>
+      </div>
+      <p className="text-center text-xl">Total points: {points}</p>
     </form>
   );
 }
