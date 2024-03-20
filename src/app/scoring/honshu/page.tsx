@@ -48,51 +48,25 @@ export default function Honshu() {
 }
 
 function HonshuPointCalculator() {
+  const [formValues, setFormValues] = useState({
+    forests: 0,
+    city: 0,
+    factories: 0,
+    lakes: 0,
+  });
   const [points, setPoints] = useState(0);
-  const [forests, setForests] = useState(0);
-  const [city, setCity] = useState(0);
-  const [factories, setFactories] = useState(0);
-  const [lakes, setLakes] = useState(0);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if ("" === event.target.value) {
+    const { name, value } = event.target;
+
+    if ("" === value) {
       return;
     }
 
-    const scoringValues = {
-      forests,
-      city,
-      factories,
-      lakes,
-    };
+    const newScoreValues = { ...formValues, [name]: parseInt(value) };
 
-    const newValue = parseInt(event.target.value);
-
-    if ("forests" === event.target.name) {
-      setForests(newValue);
-
-      scoringValues.forests = newValue;
-    }
-
-    if ("city" === event.target.name) {
-      setCity(newValue);
-
-      scoringValues.city = newValue;
-    }
-
-    if ("factories" === event.target.name) {
-      setFactories(newValue);
-
-      scoringValues.factories = newValue;
-    }
-
-    if ("lakes" === event.target.name) {
-      setLakes(newValue);
-
-      scoringValues.lakes = newValue;
-    }
-
-    setPoints(calculatePoints(scoringValues));
+    setFormValues(newScoreValues);
+    setPoints(calculatePoints(newScoreValues));
   };
 
   const calculatePoints = (scoringValues: ScoreType) => {
@@ -130,7 +104,7 @@ function HonshuPointCalculator() {
         <label>Forests</label>
         <input
           type="number"
-          value={forests}
+          value={formValues.forests}
           name="forests"
           onChange={(e) => handleInputChange(e)}
         />
@@ -140,7 +114,7 @@ function HonshuPointCalculator() {
         <label>Largest City</label>
         <input
           type="number"
-          value={city}
+          value={formValues.city}
           name="city"
           onChange={(e) => handleInputChange(e)}
         />
@@ -150,7 +124,7 @@ function HonshuPointCalculator() {
         <label>Factories</label>
         <input
           type="number"
-          value={factories}
+          value={formValues.factories}
           name="factories"
           onChange={(e) => handleInputChange(e)}
         />
@@ -160,7 +134,7 @@ function HonshuPointCalculator() {
         <label>Lakes</label>
         <input
           type="number"
-          value={lakes}
+          value={formValues.lakes}
           name="lakes"
           onChange={(e) => handleInputChange(e)}
         />
