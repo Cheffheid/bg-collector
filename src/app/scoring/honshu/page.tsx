@@ -1,12 +1,17 @@
 "use client";
 
 import { type ChangeEvent, useState } from "react";
+import { number } from "zod";
 import { Header } from "~/app/_components/header";
 
 interface ScoreType {
   forests: number;
   city: number;
-  factories: number;
+  factories: {
+    twopoint: number;
+    threepoint: number;
+    fourpoint: number;
+  };
   lakes: number;
 }
 
@@ -51,19 +56,39 @@ function HonshuPointCalculator() {
   const [formValues, setFormValues] = useState({
     forests: 0,
     city: 0,
-    factories: 0,
+    factories: {
+      twopoint: 0,
+      threepoint: 0,
+      fourpoint: 0,
+    },
     lakes: 0,
   });
   const [points, setPoints] = useState(0);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    let newScoreValues;
 
     if ("" === value) {
       return;
     }
 
-    const newScoreValues = { ...formValues, [name]: parseInt(value) };
+    if (name.includes("factories")) {
+      const factoryType = name.substring(
+        name.indexOf("[") + 1,
+        name.lastIndexOf("]"),
+      );
+
+      newScoreValues = {
+        ...formValues,
+        factories: {
+          ...formValues.factories,
+          [factoryType]: parseInt(value),
+        },
+      };
+    } else {
+      newScoreValues = { ...formValues, [name]: parseInt(value) };
+    }
 
     setFormValues(newScoreValues);
     setPoints(calculatePoints(newScoreValues));
@@ -86,8 +111,16 @@ function HonshuPointCalculator() {
     }
 
     // Factories are worth 2, 3 or 4 points.
-    if (scoringValues.factories > 0) {
-      factoryScore = scoringValues.factories * 2;
+    if (scoringValues.factories.twopoint > 0) {
+      factoryScore += scoringValues.factories.twopoint * 2;
+    }
+
+    if (scoringValues.factories.threepoint > 0) {
+      factoryScore += scoringValues.factories.threepoint * 3;
+    }
+
+    if (scoringValues.factories.fourpoint > 0) {
+      factoryScore += scoringValues.factories.fourpoint * 4;
     }
 
     // Each lake district square is worth 3 points beyond the first square.
@@ -120,14 +153,37 @@ function HonshuPointCalculator() {
         />
       </div>
 
-      <div>
-        <label>Factories</label>
-        <input
-          type="number"
-          value={formValues.factories}
-          name="factories"
-          onChange={(e) => handleInputChange(e)}
-        />
+      <div className="flex">
+        <label className="block">
+          2 Point Factories
+          <br />
+          <input
+            type="number"
+            value={formValues.factories.twopoint}
+            name="factories[twopoint]"
+            onChange={(e) => handleInputChange(e)}
+          />
+        </label>
+        <label className="block">
+          3 Point Factories
+          <br />
+          <input
+            type="number"
+            value={formValues.factories.threepoint}
+            name="factories[threepoint]"
+            onChange={(e) => handleInputChange(e)}
+          />
+        </label>
+        <label className="block">
+          4 Point Factories
+          <br />
+          <input
+            type="number"
+            value={formValues.factories.fourpoint}
+            name="factories[fourpoint]"
+            onChange={(e) => handleInputChange(e)}
+          />
+        </label>
       </div>
 
       <div>
