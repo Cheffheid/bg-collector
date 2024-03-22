@@ -12,7 +12,7 @@ interface ScoreType {
     threepoint: number;
     fourpoint: number;
   };
-  lakes: number;
+  lakes: number[];
 }
 
 export default function Honshu() {
@@ -44,12 +44,12 @@ function HonshuPointCalculator() {
       threepoint: 0,
       fourpoint: 0,
     },
-    lakes: 0,
+    lakes: [0],
   });
   const [points, setPoints] = useState(0);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const { name, value, dataset } = event.target;
     let newScoreValues;
 
     if ("" === value) {
@@ -69,6 +69,10 @@ function HonshuPointCalculator() {
           [factoryType]: parseInt(value),
         },
       };
+    } else if (name.includes("lakes")) {
+      newScoreValues = { ...formValues };
+
+      newScoreValues.lakes[parseInt(dataset.lake!)] = parseInt(value);
     } else {
       newScoreValues = { ...formValues, [name]: parseInt(value) };
     }
@@ -107,12 +111,22 @@ function HonshuPointCalculator() {
     }
 
     // Each lake district square is worth 3 points beyond the first square.
-    if (scoringValues.lakes > 0) {
-      lakeScore = (scoringValues.lakes - 1) * 3;
-    }
+    scoringValues.lakes.map((lake) => {
+      if (0 === lake) {
+        lakeScore += 0;
+      } else {
+        lakeScore += (lake - 1) * 3;
+      }
+    });
 
     return forestScore + cityScore + factoryScore + lakeScore;
   };
+
+  function handleLakeButton() {
+    formValues.lakes.push(0);
+
+    setFormValues({ ...formValues });
+  }
 
   return (
     <form>
@@ -199,14 +213,23 @@ function HonshuPointCalculator() {
         </p>
         <div>
           <label>Lakes</label>
-          <input
-            className="ml-2 p-1"
-            type="number"
-            value={formValues.lakes}
-            name="lakes"
-            onChange={(e) => handleInputChange(e)}
-          />
+          {formValues.lakes.map((lake: number, index: number) => {
+            return (
+              <input
+                key={index}
+                data-lake={index}
+                className="ml-2 p-1"
+                type="number"
+                value={lake}
+                name="lakes[]"
+                onChange={(e) => handleInputChange(e)}
+              />
+            );
+          })}
         </div>
+        <button type="button" onClick={() => handleLakeButton()}>
+          Add a Lake
+        </button>
       </div>
       <p className="text-center text-xl">Total points: {points}</p>
     </form>
