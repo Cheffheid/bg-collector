@@ -138,7 +138,7 @@ function HonshuPointCalculator() {
           Forests
         </label>
         <p className="mt-2 text-sm">
-          For each forest square the players score 1 point.
+          For each forest square the players score 2 points.
         </p>
         <input
           className="mt-2.5 p-1 text-sm"
