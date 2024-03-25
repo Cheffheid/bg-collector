@@ -17,10 +17,10 @@ interface ScoreType {
 
 export default function Honshu() {
   return (
-    <main className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-6xl xl:px-0">
+    <main>
       <div className="flex h-screen flex-col justify-start">
         <Header />
-        <div className="container mx-auto flex flex-col items-center divide-y divide-gray-200 dark:divide-gray-700">
+        <div className="container mx-auto flex max-w-3xl flex-col items-center divide-y divide-gray-200 px-4 sm:px-6 xl:max-w-6xl xl:px-0 dark:divide-gray-700">
           <div className="mb-4 text-center">
             <h1 className="w-full text-2xl font-bold">Honshu</h1>
             <p>
