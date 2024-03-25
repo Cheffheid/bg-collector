@@ -131,94 +131,118 @@ function HonshuPointCalculator() {
   return (
     <form>
       <div className="py-2">
-        <p className="mb-4">
+        <label
+          className="block font-semibold leading-6 text-gray-900"
+          htmlFor="forests"
+        >
+          Forests
+        </label>
+        <p className="mt-2 text-sm">
           For each forest square the players score 1 point.
         </p>
-        <div>
-          <label>Forests</label>
-          <input
-            className="ml-2 p-1"
-            type="number"
-            value={formValues.forests}
-            name="forests"
-            onChange={(e) => handleInputChange(e)}
-          />
-        </div>
+        <input
+          className="mt-2.5 p-1 text-sm"
+          type="number"
+          value={formValues.forests}
+          name="forests"
+          onChange={(e) => handleInputChange(e)}
+        />
       </div>
 
       <div className="py-2">
-        <p className="mb-4">
+        <label
+          className="block font-semibold leading-6 text-gray-900"
+          htmlFor="name"
+        >
+          Largest City
+        </label>
+        <p className="mt-2 text-sm">
           For each town square the players score 1 point, but only the biggest
           town district of each player is counted. A district consists of all
           orthogonally adjacent squares of the same area type.
         </p>
-        <div>
-          <label>Largest City</label>
-          <input
-            className="ml-2 p-1"
-            type="number"
-            value={formValues.city}
-            name="city"
-            onChange={(e) => handleInputChange(e)}
-          />
-        </div>
+        <input
+          className="mt-2.5 p-1 text-sm"
+          type="number"
+          value={formValues.city}
+          name="city"
+          onChange={(e) => handleInputChange(e)}
+        />
       </div>
 
       <div className="py-2">
-        <p className="mb-4">
+        <p className="block font-semibold leading-6 text-gray-900">Factories</p>
+        <p className="mt-2 text-sm">
           For each factory which can be given a resource from a matching
           production square the players score 2/3/4 points.
         </p>
-        <div className="flex">
-          <label className="block w-1/3">
-            2 Point Factories
-            <br />
+        <div className="mt-2 flex gap-4">
+          <div>
+            <label
+              className="block text-sm font-semibold leading-6 text-gray-900"
+              htmlFor="factories[twopoint]"
+            >
+              2 Point Factories
+            </label>
             <input
-              className="p-1"
+              className="mt-2.5 p-1 text-sm"
               type="number"
               value={formValues.factories.twopoint}
               name="factories[twopoint]"
               onChange={(e) => handleInputChange(e)}
             />
-          </label>
-          <label className="block w-1/3">
-            3 Point Factories
-            <br />
+          </div>
+          <div>
+            <label
+              className="block text-sm font-semibold leading-6 text-gray-900"
+              htmlFor="factories[threepoint]"
+            >
+              3 Point Factories
+            </label>
             <input
-              className="p-1"
+              className="mt-2.5 p-1 text-sm"
               type="number"
               value={formValues.factories.threepoint}
               name="factories[threepoint]"
               onChange={(e) => handleInputChange(e)}
             />
-          </label>
-          <label className="block w-1/3">
-            4 Point Factories
-            <br />
+          </div>
+          <div>
+            <label
+              className="block text-sm font-semibold leading-6 text-gray-900"
+              htmlFor="factories[fourpoint]"
+            >
+              4 Point Factories
+            </label>
             <input
-              className="p-1"
+              className="mt-2.5 p-1 text-sm"
               type="number"
               value={formValues.factories.fourpoint}
               name="factories[fourpoint]"
               onChange={(e) => handleInputChange(e)}
             />
-          </label>
+          </div>
         </div>
       </div>
 
       <div className="py-2">
-        <p className="mb-4">
+        <label
+          className="block font-semibold leading-6 text-gray-900"
+          htmlFor="lakes[]"
+        >
+          Lakes
+        </label>
+        <p className="mt-2 text-sm">
           The first lake square of each lake district is worth 0 and each
           consecutive square is worth 3 points.
         </p>
-        <div>
-          <label>Lakes</label>
+        <div className="items-flex-start flex flex-col">
           {formValues.lakes.map((lake: number, index: number) => {
             return (
               <input
                 key={index}
                 data-lake={index}
-                className="ml-2 p-1"
+                className="mt-2.5 p-1 text-sm"
                 type="number"
                 value={lake}
                 name="lakes[]"
@@ -227,11 +251,15 @@ function HonshuPointCalculator() {
             );
           })}
         </div>
-        <button type="button" onClick={() => handleLakeButton()}>
-          Add a Lake
-        </button>
       </div>
-      <p className="text-center text-xl">Total points: {points}</p>
+      <button
+        type="button"
+        className="rounded-md border-gray-200 bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-blue-500 focus:bg-blue-500"
+        onClick={() => handleLakeButton()}
+      >
+        Add a Lake
+      </button>
+      <p className="mt-4 text-xl font-semibold">Total points: {points}</p>
     </form>
   );
 }
