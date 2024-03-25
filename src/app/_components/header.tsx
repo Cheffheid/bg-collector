@@ -1,5 +1,5 @@
 import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-import Link from "next/link";
+import { NavigationList } from "./navigationList";
 
 export function Header() {
   return (
@@ -13,20 +13,7 @@ export function Header() {
                 Boardgame Collector
               </span>
             </p>
-            <div className="ml-5 flex">
-              <Link
-                href="/"
-                className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-              >
-                Home
-              </Link>
-              <Link
-                href="/scoring"
-                className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-              >
-                Scoring Helpers
-              </Link>
-            </div>
+            <NavigationList />
           </div>
           <div className="ml-auto">
             <SignedIn>
