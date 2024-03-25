@@ -23,7 +23,7 @@ export function NavigationList() {
   const pathName = usePathname();
 
   return (
-    <div className="ml-5 flex">
+    <div className="ml-5 flex gap-2">
       {navigation.map((link) => {
         let linkClasses =
           "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white";
