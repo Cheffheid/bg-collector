@@ -1,7 +1,6 @@
 "use client";
 
 import { type ChangeEvent, useState } from "react";
-import { number } from "zod";
 import { Header } from "~/app/_components/header";
 
 interface ScoreType {
