@@ -12,7 +12,7 @@ export default function Scoring() {
           pageTitle="Score Helpers"
           pageDescription="Helpful score calculators for different games."
         />
-        <div className="container mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex max-w-3xl items-center divide-y divide-gray-200 px-4 sm:px-6 xl:max-w-6xl xl:px-0 dark:divide-gray-700">
             <Link
               href="/scoring/honshu"
