@@ -2,6 +2,7 @@
 
 import { type ChangeEvent, useState } from "react";
 import { Header } from "~/app/_components/header";
+import { PageHeader } from "~/app/_components/pageHeader";
 
 interface ScoreType {
   forests: number;
@@ -19,14 +20,12 @@ export default function Honshu() {
     <main>
       <div className="flex h-screen flex-col justify-start">
         <Header />
+        <PageHeader
+          pageTitle="Honshu"
+          pageDescription="Scoring in Honshu is relatively straightforward, and works like
+            this:"
+        />
         <div className="container mx-auto flex max-w-3xl flex-col items-center divide-y divide-gray-200 px-4 sm:px-6 xl:max-w-6xl xl:px-0 dark:divide-gray-700">
-          <div className="mb-4 text-center">
-            <h1 className="w-full text-2xl font-bold">Honshu</h1>
-            <p>
-              Scoring in Honshu is relatively straightforward, and works like
-              this:
-            </p>
-          </div>
           <HonshuPointCalculator />
         </div>
       </div>

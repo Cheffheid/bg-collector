@@ -1,16 +1,17 @@
 import Link from "next/link";
 
 import { Header } from "../_components/header";
+import { PageHeader } from "../_components/pageHeader";
 
 export default function Scoring() {
   return (
     <main>
       <div className="flex h-screen flex-col justify-start">
         <Header />
-        <div className="mb-4 text-center">
-          <h1 className="w-full text-2xl font-bold">Score Helpers</h1>
-          <p>Helpful score calculators for different games.</p>
-        </div>
+        <PageHeader
+          pageTitle="Score Helpers"
+          pageDescription="Helpful score calculators for different games."
+        />
         <div className="container mx-auto flex max-w-3xl items-center divide-y divide-gray-200 px-4 sm:px-6 xl:max-w-6xl xl:px-0 dark:divide-gray-700">
           <Link
             href="/scoring/honshu"
