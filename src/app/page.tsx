@@ -6,6 +6,7 @@ import { AddBoardgame } from "./_components/add-boardgame";
 import { Suspense } from "react";
 import { CollectionSkeleton } from "./_components/collectionSkeleton";
 import { Header } from "./_components/header";
+import { PageHeader } from "./_components/pageHeader";
 
 export default function Home() {
   const user = useUser();
@@ -14,8 +15,14 @@ export default function Home() {
     <main>
       <div className="flex h-screen flex-col justify-start">
         <Header />
-        <div className="container mx-auto flex max-w-3xl flex-col items-center divide-y divide-gray-200 px-4 sm:px-6 xl:max-w-6xl xl:px-0 dark:divide-gray-700">
-          <HomeContent isSignedIn={user.isSignedIn} />
+        <PageHeader
+          pageTitle="Your Collection"
+          pageDescription="Make sure you sign in first!"
+        />
+        <div className="container mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+          <div className="flex max-w-7xl flex-col items-center divide-y divide-gray-200 px-4 py-6 lg:px-8 xl:max-w-6xl xl:px-0 dark:divide-gray-700">
+            <HomeContent isSignedIn={user.isSignedIn} />
+          </div>
         </div>
       </div>
     </main>

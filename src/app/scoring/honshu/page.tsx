@@ -25,8 +25,10 @@ export default function Honshu() {
           pageDescription="Scoring in Honshu is relatively straightforward, and works like
             this:"
         />
-        <div className="container mx-auto flex max-w-3xl flex-col items-center divide-y divide-gray-200 px-4 sm:px-6 xl:max-w-6xl xl:px-0 dark:divide-gray-700">
-          <HonshuPointCalculator />
+        <div className="container mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+          <div className="flex max-w-7xl items-center divide-y divide-gray-200 xl:max-w-6xl dark:divide-gray-700">
+            <HonshuPointCalculator />
+          </div>
         </div>
       </div>
     </main>
@@ -128,7 +130,7 @@ function HonshuPointCalculator() {
 
   return (
     <form>
-      <div className="p-2">
+      <div className="py-2">
         <p className="mb-4">
           For each forest square the players score 1 point.
         </p>
@@ -144,7 +146,7 @@ function HonshuPointCalculator() {
         </div>
       </div>
 
-      <div className="p-2">
+      <div className="py-2">
         <p className="mb-4">
           For each town square the players score 1 point, but only the biggest
           town district of each player is counted. A district consists of all
@@ -162,7 +164,7 @@ function HonshuPointCalculator() {
         </div>
       </div>
 
-      <div className="p-2">
+      <div className="py-2">
         <p className="mb-4">
           For each factory which can be given a resource from a matching
           production square the players score 2/3/4 points.
@@ -204,7 +206,7 @@ function HonshuPointCalculator() {
         </div>
       </div>
 
-      <div className="p-2">
+      <div className="py-2">
         <p className="mb-4">
           The first lake square of each lake district is worth 0 and each
           consecutive square is worth 3 points.
