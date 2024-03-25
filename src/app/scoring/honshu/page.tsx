@@ -25,7 +25,7 @@ export default function Honshu() {
           pageDescription="Scoring in Honshu is relatively straightforward, and works like
             this:"
         />
-        <div className="container mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex max-w-7xl items-center divide-y divide-gray-200 xl:max-w-6xl dark:divide-gray-700">
             <HonshuPointCalculator />
           </div>
@@ -176,7 +176,7 @@ function HonshuPointCalculator() {
           For each factory which can be given a resource from a matching
           production square the players score 2/3/4 points.
         </p>
-        <div className="mt-2 flex gap-4">
+        <div className="mt-2 flex flex-col gap-4 md:flex-row">
           <div>
             <label
               className="block text-sm font-semibold leading-6 text-gray-900"
