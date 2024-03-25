@@ -236,7 +236,7 @@ function HonshuPointCalculator() {
           The first lake square of each lake district is worth 0 and each
           consecutive square is worth 3 points.
         </p>
-        <div className="items-flex-start flex flex-col">
+        <div className="flex flex-col items-start">
           {formValues.lakes.map((lake: number, index: number) => {
             return (
               <input
@@ -254,8 +254,9 @@ function HonshuPointCalculator() {
       </div>
       <button
         type="button"
-        className="rounded-md border-gray-200 bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-blue-500 focus:bg-blue-500"
+        className="rounded-md border-gray-200 bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-blue-500 focus:bg-blue-500 disabled:bg-slate-400"
         onClick={() => handleLakeButton()}
+        disabled={4 < formValues.lakes.length}
       >
         Add a Lake
       </button>
