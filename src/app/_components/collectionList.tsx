@@ -1,7 +1,7 @@
 import { api } from "~/trpc/react";
 import { BoardgameView } from "./boardgameview";
 
-export function Collection() {
+export function CollectionList() {
   const [data] = api.boardgame.getAllFromUser.useSuspenseQuery();
 
   return (

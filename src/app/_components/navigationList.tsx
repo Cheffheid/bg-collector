@@ -15,6 +15,10 @@ export function NavigationList() {
       path: "/",
     },
     {
+      label: "Collection",
+      path: "/collection",
+    },
+    {
       label: "Scoring Helpers",
       path: "/scoring",
     },
