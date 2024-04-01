@@ -1,12 +1,39 @@
+"use client";
+
+import Image from "next/image";
 import { Header } from "./_components/header";
+import homepageBg from "src/styles/home-bg.webp";
+import { imageConfigDefault } from "next/dist/shared/lib/image-config";
 
 export default function Home() {
   return (
     <main>
       <div className="flex h-screen flex-col justify-start">
         <Header />
-        <div className="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="flex max-w-7xl flex-col items-center divide-y divide-gray-200 px-4 py-6 lg:px-8 xl:max-w-6xl xl:px-0 dark:divide-gray-700"></div>
+        <div className="fixed -z-[1] h-[100vh] w-[100vw] overflow-hidden">
+          <Image
+            src={homepageBg}
+            alt=""
+            className="scale-125 object-cover object-top blur transition-all"
+            placeholder="empty"
+            sizes="100vw"
+            fill
+            onLoad={(event) => {
+              const image = event.target;
+
+              if (image instanceof HTMLElement) {
+                image.classList.remove("blur", "scale-125");
+              }
+            }}
+          />
+        </div>
+        <div className="fixed top-1/4 w-full">
+          <h1 className="text-shadow mb-6 text-center text-6xl text-white">
+            Boardgaems
+          </h1>
+          <p className="text-shadow text text-center text-white">
+            Gotta collect &apos;em all.
+          </p>
         </div>
       </div>
     </main>
