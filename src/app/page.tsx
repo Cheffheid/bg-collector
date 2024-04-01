@@ -27,13 +27,9 @@ export default function Home() {
             }}
           />
         </div>
-        <div className="fixed top-1/4 w-full">
-          <h1 className="text-shadow mb-6 text-center text-6xl text-white">
-            Boardgaems
-          </h1>
-          <p className="text-shadow text text-center text-white">
-            Gotta collect &apos;em all.
-          </p>
+        <div className="fixed top-1/4 w-full text-center text-white drop-shadow-lg">
+          <h1 className="mb-6 text-6xl ">Boardgaems</h1>
+          <p className="text-lg">Gotta collect &apos;em all.</p>
         </div>
       </div>
     </main>
