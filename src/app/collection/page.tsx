@@ -10,6 +10,11 @@ import { PageHeader } from "../_components/pageHeader";
 
 export default function Collection() {
   const user = useUser();
+  let headerDescription = "";
+
+  if (!user.isSignedIn) {
+    headerDescription = "Make sure you sign in first!";
+  }
 
   return (
     <main>
@@ -17,7 +22,7 @@ export default function Collection() {
         <Header />
         <PageHeader
           pageTitle="Your Collection"
-          pageDescription="Make sure you sign in first!"
+          pageDescription={headerDescription}
         />
         <div className="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex max-w-7xl flex-col items-center divide-y divide-gray-200 px-4 py-6 lg:px-8 xl:max-w-6xl xl:px-0 dark:divide-gray-700">
