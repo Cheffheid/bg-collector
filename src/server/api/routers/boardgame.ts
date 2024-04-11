@@ -8,12 +8,25 @@ import {
 
 export const boardgameRouter = createTRPCRouter({
   create: privateProcedure
-    .input(z.object({ name: z.string().min(1) }))
+    .input(
+      z.object({
+        title: z.string().min(1),
+        yearPublished: z.number().gte(4),
+        minPlayers: z.number().gt(0),
+        maxPlayers: z.number().gt(0),
+        playingTime: z.number().gt(0),
+        complexity: z.number().gt(0),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       return ctx.db.boardgame.create({
         data: {
-          authorId: ctx.currentUser,
-          name: input.name,
+          title: input.title,
+          yearPublished: input.yearPublished,
+          minPlayers: input.minPlayers,
+          maxPlayers: input.maxPlayers,
+          playingTime: input.playingTime,
+          complexity: input.complexity,
         },
       });
     }),
@@ -31,17 +44,6 @@ export const boardgameRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
     const games = await ctx.db.boardgame.findMany({
       take: 100,
-    });
-
-    return games;
-  }),
-
-  getAllFromUser: privateProcedure.query(async ({ ctx }) => {
-    const games = await ctx.db.boardgame.findMany({
-      take: 100,
-      where: {
-        authorId: ctx.currentUser,
-      },
     });
 
     return games;

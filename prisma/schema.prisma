@@ -2,22 +2,30 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
-    directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model Boardgame {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    authorId  String
+  id            Int         @id @default(autoincrement())
+  title         String
+  yearPublished Int
+  minPlayers    Int
+  maxPlayers    Int
+  playingTime   Int
+  complexity    Int
+  Ownership     Collection[]
+}
 
-    @@index([name])
-    @@index([authorId])
+model Collection {
+  id      Int       @id @default(autoincrement())
+  ownerId String
+
+  game    Boardgame @relation(fields: [gameId], references: [id])
+  gameId  Int
 }
