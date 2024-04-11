@@ -3,26 +3,25 @@
 import Image from "next/image";
 import { Header } from "./_components/header";
 import homepageBg from "src/styles/home-bg.webp";
-import { imageConfigDefault } from "next/dist/shared/lib/image-config";
 
 export default function Home() {
   return (
     <main>
       <div className="flex h-screen flex-col justify-start">
         <Header />
-        <div className="fixed -z-[1] h-[100vh] w-[100vw] overflow-hidden">
+        <div className="fixed -z-[1] h-[100vh] w-[100vw] overflow-hidden bg-gray-800">
           <Image
             src={homepageBg}
             alt=""
-            className="scale-125 object-cover object-top blur transition-all"
-            placeholder="empty"
+            className="object-cover object-top opacity-0 transition-opacity duration-500"
             sizes="100vw"
             fill
+            priority={true}
             onLoad={(event) => {
               const image = event.target;
 
               if (image instanceof HTMLElement) {
-                image.classList.remove("blur", "scale-125");
+                image.classList.remove("opacity-0");
               }
             }}
           />
