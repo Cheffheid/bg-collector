@@ -7,38 +7,20 @@ export function AddBoardgame() {
 
   const ctx = api.useUtils();
 
-  const addBoardgame = api.boardgame.create.useMutation({
+  const addBoardgame = api.collection.addToCollection.useMutation({
     onSuccess: () => {
       setName("");
-      void ctx.boardgame.getAllFromUser.invalidate();
+      void ctx.collection.getCollection.invalidate();
     },
   });
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-
-        if ("" !== name) {
-          addBoardgame.mutate({ name });
-        }
-      }}
-      className="relative mb-2 flex w-full items-center justify-center pt-4 md:w-3/5"
-    >
+    <form className="relative mb-2 flex w-full items-center justify-center pt-4 md:w-3/5">
       <input
         type="text"
         placeholder="Add a game!"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        onKeyDown={(e) => {
-          if ("Enter" === e.key) {
-            e.preventDefault();
-
-            if ("" !== name) {
-              addBoardgame.mutate({ name });
-            }
-          }
-        }}
         className="grow bg-slate-50 px-4 py-2 text-black transition focus:bg-white"
       />
       <button
