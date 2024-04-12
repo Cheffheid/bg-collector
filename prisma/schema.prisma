@@ -14,11 +14,12 @@ datasource db {
 model Boardgame {
   id            Int         @id @default(autoincrement())
   title         String
+  imageUrl      String?
   yearPublished Int
   minPlayers    Int
   maxPlayers    Int
   playingTime   Int
-  complexity    Int
+  complexity    Int?
   Ownership     Collection[]
 }
 
