@@ -2,7 +2,7 @@
 
 import { SignInButton, useUser } from "@clerk/nextjs";
 import { CollectionList } from "../_components/collectionList";
-import { AddBoardgame } from "../_components/addBoardgame";
+import { AddBoardgame } from "../_components/boardgame/addBoardgame";
 import { Suspense } from "react";
 import { CollectionSkeleton } from "../_components/collectionSkeleton";
 import { Header } from "../_components/header";
