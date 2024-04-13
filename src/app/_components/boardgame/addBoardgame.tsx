@@ -39,6 +39,60 @@ const BoardgameInput = (props: {
   name: string;
 }) => {
   const [listHidden, setListHidden] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const [searchText, setSearchText] = useState("");
+
+  const { data: games } = api.boardgame.getGamesByTitle.useQuery({
+    title: searchText,
+  });
+
+  const handleKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const key = e.code;
+
+    if (!games || 0 === games.length) {
+      return;
+    }
+
+    if ("ArrowUp" !== key && "ArrowDown" !== key) {
+      return;
+    }
+
+    if ("ArrowDown" === key) {
+      highlightNextItem();
+    }
+
+    if ("ArrowUp" === key) {
+      highlightPreviousItem();
+    }
+  };
+
+  const highlightNextItem = () => {
+    if (!games) {
+      return;
+    }
+
+    let newIndex = activeIndex + 1;
+
+    if (newIndex > games.length - 1) {
+      newIndex = 0;
+    }
+
+    setActiveIndex(newIndex);
+  };
+
+  const highlightPreviousItem = () => {
+    if (!games) {
+      return;
+    }
+
+    let newIndex = activeIndex - 1;
+
+    if (0 > newIndex) {
+      newIndex = games.length - 1;
+    }
+
+    setActiveIndex(newIndex);
+  };
 
   return (
     <>
@@ -50,46 +104,52 @@ const BoardgameInput = (props: {
         type="text"
         placeholder="Add a game!"
         value={props.name}
-        onChange={props.onChangeCallback}
+        onChange={(e) => {
+          setSearchText(e.currentTarget.value);
+          props.onChangeCallback(e);
+        }}
         onFocus={() => setListHidden(false)}
-        onBlur={() => setListHidden(true)}
+        onBlur={() => {
+          setActiveIndex(-1);
+          setListHidden(true);
+        }}
+        onKeyDown={handleKeydown}
         role="combobox"
         aria-controls="boardgame-list"
         aria-expanded="false"
         className="grow bg-slate-50 px-4 py-2 text-black transition focus:bg-white"
       />
-      <BoardgameList searchText={props.name} listHidden={listHidden} />
+      {!listHidden && games && (
+        <BoardgameList games={games} activeIndex={activeIndex} />
+      )}
     </>
   );
 };
 
 const BoardgameList = ({
-  searchText,
-  listHidden,
+  games,
+  activeIndex,
 }: {
-  searchText: string;
-  listHidden: boolean;
+  games: {
+    title: string;
+    yearPublished: number;
+    id: number;
+  }[];
+  activeIndex: number;
 }) => {
-  if (listHidden) {
-    return <></>;
-  }
-
-  const { data: games } = api.boardgame.getGamesByTitle.useQuery({
-    title: searchText,
-  });
-
-  if (!games) {
-    return <></>;
-  }
-
   return (
     <ul
       aria-label="Boardgames"
       role="listbox"
       className="absolute top-full max-h-80 w-full overflow-y-auto bg-white"
     >
-      {games.map((game) => (
-        <li key={game.id} role="option" aria-selected="false" className="p-1">
+      {games.map((game, index) => (
+        <li
+          key={game.id}
+          role="option"
+          aria-selected={index === activeIndex ? "true" : "false"}
+          className="cursor-pointer p-1 hover:bg-indigo-200 hover:text-neutral-950 focus:bg-indigo-200 focus:text-neutral-950"
+        >
           {game.title} ({game.yearPublished})
         </li>
       ))}
