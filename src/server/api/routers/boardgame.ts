@@ -44,8 +44,29 @@ export const boardgameRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
     const games = await ctx.db.boardgame.findMany({
       take: 100,
+      orderBy: [{ title: "asc" }],
     });
 
     return games;
   }),
+
+  getGamesByTitle: publicProcedure
+    .input(z.object({ title: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const games = await ctx.db.boardgame.findMany({
+        take: 100,
+        where: {
+          title: {
+            contains: input.title,
+          },
+        },
+        select: {
+          id: true,
+          title: true,
+          yearPublished: true,
+        },
+      });
+
+      return games;
+    }),
 });
