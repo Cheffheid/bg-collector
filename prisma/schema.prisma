@@ -24,9 +24,8 @@ model Boardgame {
 }
 
 model Collection {
-  id      Int       @id @default(autoincrement())
-  ownerId String
+  id      Int       @default(autoincrement())
+  ownerId String    @id
 
-  game    Boardgame @relation(fields: [gameId], references: [id])
-  gameId  Int
+  games   Boardgame[]
 }
