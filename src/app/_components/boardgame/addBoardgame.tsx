@@ -21,7 +21,16 @@ export function AddBoardgame() {
   });
 
   return (
-    <form className="relative mb-2 flex w-full flex-col pt-4 md:w-3/5">
+    <form
+      className="relative mb-2 flex w-full flex-col pt-4 md:w-3/5"
+      onSubmit={(e) => {
+        e.preventDefault();
+
+        if (selectedGame.id && 0 !== selectedGame.id) {
+          addBoardgame.mutate({ gameId: selectedGame.id });
+        }
+      }}
+    >
       <div className="relative flex items-center justify-center pb-1">
         <BoardgameInput
           selectedGame={selectedGame}
