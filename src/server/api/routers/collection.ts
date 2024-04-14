@@ -9,10 +9,24 @@ export const collectionRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.db.collection.create({
-        data: {
+      return ctx.db.collection.upsert({
+        where: {
           ownerId: ctx.currentUser,
-          gameId: input.gameId,
+        },
+        update: {
+          games: {
+            connect: {
+              id: input.gameId,
+            },
+          },
+        },
+        create: {
+          ownerId: ctx.currentUser,
+          games: {
+            connect: {
+              id: input.gameId,
+            },
+          },
         },
       });
     }),
