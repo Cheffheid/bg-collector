@@ -36,6 +36,10 @@ export const collectionRouter = createTRPCRouter({
       where: {
         ownerId: ctx.currentUser,
       },
+      select: {
+        id: true,
+        games: true,
+      },
     });
 
     return collection;
