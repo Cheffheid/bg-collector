@@ -4,26 +4,26 @@ import type { RouterOutputs } from "~/trpc/shared";
 type Boardgame = RouterOutputs["boardgame"]["getAll"][number];
 
 export const BoardgameView = (props: Boardgame) => {
-  const { id, name } = props;
+  const { id, title } = props;
 
   const ctx = api.useUtils();
 
-  const deleteBoardgame = api.boardgame.delete.useMutation({
+  const removeBoardgame = api.collection.removeFromCollection.useMutation({
     onSuccess: () => {
-      void ctx.boardgame.getAllFromUser.invalidate();
+      void ctx.collection.getCollection.invalidate();
     },
   });
 
   return (
     <div key={id} className="flex gap-3 border-b border-slate-400 p-4">
       <div className="flex w-full justify-between">
-        {name}
+        {title}
         <button
           type="button"
           className="font-bold text-rose-600"
-          aria-label={`Remove ${name}`}
+          aria-label={`Remove ${title}`}
           onClick={() => {
-            deleteBoardgame.mutate({ id });
+            removeBoardgame.mutate({ gameId: id });
           }}
         >
           <svg
