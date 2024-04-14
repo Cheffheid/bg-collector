@@ -44,4 +44,25 @@ export const collectionRouter = createTRPCRouter({
 
     return collection;
   }),
+
+  removeFromCollection: privateProcedure
+    .input(
+      z.object({
+        gameId: z.number().gt(0),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.collection.update({
+        where: {
+          ownerId: ctx.currentUser,
+        },
+        data: {
+          games: {
+            disconnect: {
+              id: input.gameId,
+            },
+          },
+        },
+      });
+    }),
 });
