@@ -148,7 +148,7 @@ const BoardgameList = ({
           key={game.id}
           role="option"
           aria-selected={index === activeIndex ? "true" : "false"}
-          className="cursor-pointer p-1 hover:bg-indigo-200 hover:text-neutral-950 focus:bg-indigo-200 focus:text-neutral-950"
+          className="cursor-pointer p-1 hover:bg-indigo-200 hover:text-neutral-950 aria-selected:bg-indigo-200 aria-selected:text-neutral-950"
         >
           {game.title} ({game.yearPublished})
         </li>
