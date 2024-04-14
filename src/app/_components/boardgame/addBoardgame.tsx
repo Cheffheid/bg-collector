@@ -78,14 +78,8 @@ const BoardgameInput = (props: {
     if ("Enter" === key) {
       preventDefault = true;
 
-      if (games && 0 < games.length && -1 !== activeIndex) {
-        const selectedGame = games.at(activeIndex);
-
-        if ("undefined" !== typeof selectedGame) {
-          props.setSelectedGame(selectedGame);
-          closeList();
-        }
-      }
+      selectTheGame();
+      closeList();
     }
 
     if (preventDefault) {
@@ -126,6 +120,20 @@ const BoardgameInput = (props: {
     setListHidden(true);
   };
 
+  const selectTheGame = (forceCloseList = false) => {
+    if (games && 0 < games.length && -1 !== activeIndex) {
+      const selectedGame = games.at(activeIndex);
+
+      if ("undefined" !== typeof selectedGame) {
+        props.setSelectedGame(selectedGame);
+      }
+    }
+
+    if (forceCloseList) {
+      closeList();
+    }
+  };
+
   return (
     <>
       <label htmlFor="boardgame-input" id="boardgame-label" className="sr-only">
@@ -140,51 +148,38 @@ const BoardgameInput = (props: {
           setSearchText(e.currentTarget.value);
         }}
         onFocus={() => setListHidden(false)}
-        onBlur={closeList}
         onKeyDown={handleKeydown}
         role="combobox"
         aria-controls="boardgame-list"
         aria-expanded="false"
         className="grow bg-slate-50 px-4 py-2 text-black transition focus:bg-white"
+        autoComplete="off"
       />
       {!listHidden && games && (
-        <BoardgameList games={games} activeIndex={activeIndex} />
+        <ul
+          aria-label="Boardgames"
+          role="listbox"
+          className="absolute top-full max-h-80 w-full overflow-y-auto bg-white"
+          onMouseLeave={() => setActiveIndex(-1)}
+          aria-activedescendant={
+            -1 !== activeIndex ? `gamelistitem-${activeIndex}` : ""
+          }
+        >
+          {games.map((game, index) => (
+            <li
+              key={game.id}
+              id={`gamelistitem-${index}`}
+              role="option"
+              aria-selected={index === activeIndex ? "true" : "false"}
+              onMouseEnter={() => setActiveIndex(index)}
+              onClick={() => selectTheGame(true)}
+              className="cursor-pointer p-1 aria-selected:bg-indigo-200 aria-selected:text-neutral-950"
+            >
+              {game.title} ({game.yearPublished})
+            </li>
+          ))}
+        </ul>
       )}
     </>
-  );
-};
-
-const BoardgameList = ({
-  games,
-  activeIndex,
-}: {
-  games: {
-    title: string;
-    yearPublished: number;
-    id: number;
-  }[];
-  activeIndex: number;
-}) => {
-  return (
-    <ul
-      aria-label="Boardgames"
-      role="listbox"
-      className="absolute top-full max-h-80 w-full overflow-y-auto bg-white"
-      aria-activedescendant={
-        -1 !== activeIndex ? `gamelistitem-${activeIndex}` : ""
-      }
-    >
-      {games.map((game, index) => (
-        <li
-          key={game.id}
-          id={`gamelistitem-${index}`}
-          role="option"
-          aria-selected={index === activeIndex ? "true" : "false"}
-          className="cursor-pointer p-1 hover:bg-indigo-200 hover:text-neutral-950 aria-selected:bg-indigo-200 aria-selected:text-neutral-950"
-        >
-          {game.title} ({game.yearPublished})
-        </li>
-      ))}
-    </ul>
   );
 };
