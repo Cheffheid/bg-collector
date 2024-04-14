@@ -142,10 +142,14 @@ const BoardgameList = ({
       aria-label="Boardgames"
       role="listbox"
       className="absolute top-full max-h-80 w-full overflow-y-auto bg-white"
+      aria-activedescendant={
+        -1 !== activeIndex ? `gamelistitem-${activeIndex}` : ""
+      }
     >
       {games.map((game, index) => (
         <li
           key={game.id}
+          id={`gamelistitem-${index}`}
           role="option"
           aria-selected={index === activeIndex ? "true" : "false"}
           className="cursor-pointer p-1 hover:bg-indigo-200 hover:text-neutral-950 aria-selected:bg-indigo-200 aria-selected:text-neutral-950"
