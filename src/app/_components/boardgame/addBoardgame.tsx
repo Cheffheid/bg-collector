@@ -157,6 +157,7 @@ const BoardgameInput = (props: {
           setSearchText(e.currentTarget.value);
         }}
         onFocus={() => setListHidden(false)}
+        onBlur={() => setListHidden(true)}
         onKeyDown={handleKeydown}
         role="combobox"
         aria-controls="boardgame-list"
@@ -181,7 +182,7 @@ const BoardgameInput = (props: {
               role="option"
               aria-selected={index === activeIndex ? "true" : "false"}
               onMouseEnter={() => setActiveIndex(index)}
-              onClick={() => selectTheGame(true)}
+              onMouseDown={() => selectTheGame(true)}
               className="cursor-pointer p-1 aria-selected:bg-indigo-200 aria-selected:text-neutral-950"
             >
               {game.title} ({game.yearPublished})
