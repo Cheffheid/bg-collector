@@ -22,6 +22,15 @@ export function AddBoardgame() {
     },
   });
 
+  const currentCollection = api.collection.getCollection.useQuery();
+  let currentCollectionIds = currentCollection?.data?.games.map(
+    (game) => game.id,
+  );
+
+  if ("undefined" === typeof currentCollectionIds) {
+    currentCollectionIds = [];
+  }
+
   return (
     <form
       className="relative mb-2 flex w-full flex-col pt-4 md:w-3/5"
@@ -39,6 +48,7 @@ export function AddBoardgame() {
           setSelectedGame={setSelectedGame}
           searchText={searchText}
           setSearchText={setSearchText}
+          currentCollection={currentCollectionIds}
         />
         <button
           type="submit"
@@ -63,6 +73,7 @@ const BoardgameInput = (props: {
   >;
   searchText: string;
   setSearchText: Dispatch<SetStateAction<string>>;
+  currentCollection: number[];
 }) => {
   const [listHidden, setListHidden] = useState(true);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -193,10 +204,19 @@ const BoardgameInput = (props: {
               role="option"
               aria-selected={index === activeIndex ? "true" : "false"}
               onMouseEnter={() => setActiveIndex(index)}
-              onMouseDown={() => selectTheGame(true)}
-              className="cursor-pointer p-1 aria-selected:bg-indigo-200 aria-selected:text-neutral-950"
+              onMouseDown={() => {
+                if (!props.currentCollection.includes(game.id)) {
+                  selectTheGame(true);
+                }
+              }}
+              className={
+                props.currentCollection.includes(game.id)
+                  ? "cursor-default p-1 text-neutral-400"
+                  : "cursor-pointer p-1 aria-selected:bg-indigo-200 aria-selected:text-neutral-950"
+              }
             >
               {game.title} ({game.yearPublished})
+              {props.currentCollection.includes(game.id) && " (Already added)"}
             </li>
           ))}
         </ul>
