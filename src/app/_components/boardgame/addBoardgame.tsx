@@ -135,6 +135,7 @@ const BoardgameInput = (props: {
 
       if ("undefined" !== typeof selectedGame) {
         props.setSelectedGame(selectedGame);
+        setSearchText(selectedGame.title);
       }
     }
 
@@ -152,11 +153,16 @@ const BoardgameInput = (props: {
         id="boardgame-input"
         type="text"
         placeholder="Add a game!"
-        value={props.selectedGame.title}
+        value={searchText}
         onChange={(e) => {
           setSearchText(e.currentTarget.value);
+
+          if ("" !== e.currentTarget.value) {
+            setListHidden(false);
+          } else {
+            setListHidden(true);
+          }
         }}
-        onFocus={() => setListHidden(false)}
         onBlur={() => setListHidden(true)}
         onKeyDown={handleKeydown}
         role="combobox"
