@@ -10,12 +10,14 @@ const defaultGame = {
 
 export function AddBoardgame() {
   const [selectedGame, setSelectedGame] = useState(defaultGame);
+  const [searchText, setSearchText] = useState("");
 
   const ctx = api.useUtils();
 
   const addBoardgame = api.collection.addToCollection.useMutation({
     onSuccess: () => {
       setSelectedGame(defaultGame);
+      setSearchText("");
       void ctx.collection.getCollection.invalidate();
     },
   });
@@ -35,6 +37,8 @@ export function AddBoardgame() {
         <BoardgameInput
           selectedGame={selectedGame}
           setSelectedGame={setSelectedGame}
+          searchText={searchText}
+          setSearchText={setSearchText}
         />
         <button
           type="submit"
@@ -57,13 +61,14 @@ const BoardgameInput = (props: {
   setSelectedGame: Dispatch<
     SetStateAction<{ title: string; yearPublished: number; id: number }>
   >;
+  searchText: string;
+  setSearchText: Dispatch<SetStateAction<string>>;
 }) => {
   const [listHidden, setListHidden] = useState(true);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [searchText, setSearchText] = useState("");
 
   let { data: games } = api.boardgame.getGamesByTitle.useQuery({
-    title: searchText,
+    title: props.searchText,
   });
 
   if ("undefined" === typeof games) {
@@ -135,7 +140,7 @@ const BoardgameInput = (props: {
 
       if ("undefined" !== typeof selectedGame) {
         props.setSelectedGame(selectedGame);
-        setSearchText(selectedGame.title);
+        props.setSearchText(selectedGame.title);
       }
     }
 
@@ -153,9 +158,9 @@ const BoardgameInput = (props: {
         id="boardgame-input"
         type="text"
         placeholder="Add a game!"
-        value={searchText}
+        value={props.searchText}
         onChange={(e) => {
-          setSearchText(e.currentTarget.value);
+          props.setSearchText(e.currentTarget.value);
 
           if ("" !== e.currentTarget.value) {
             setListHidden(false);
