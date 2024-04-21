@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { Header } from "./_components/header";
-import homepageBg from "src/styles/home-bg.webp";
 
 export default function Home() {
   return (
@@ -11,7 +10,7 @@ export default function Home() {
         <Header />
         <div className="fixed -z-[1] h-[100vh] w-[100vw] overflow-hidden bg-gray-800">
           <Image
-            src={homepageBg}
+            src="/home-bg.webp"
             alt=""
             className="object-cover object-top opacity-0 transition-opacity duration-500"
             sizes="100vw"
