@@ -2,6 +2,12 @@ import React, { type Dispatch, type SetStateAction, useState } from "react";
 
 import { api } from "~/trpc/react";
 
+interface minimumBoardgame {
+  id: number;
+  title: string;
+  yearPublished: number;
+}
+
 const defaultGame = {
   title: "",
   yearPublished: 0,
@@ -62,28 +68,65 @@ export function AddBoardgame() {
   );
 }
 
+const parseGamesXML = (gamesXML: string) => {
+  if (!gamesXML || "" === gamesXML) {
+    return [];
+  }
+
+  const parser = new DOMParser();
+  const parsedXML = parser.parseFromString(gamesXML, "text/xml");
+  const errorNode = parsedXML.querySelector("error");
+
+  if (errorNode) {
+    return [];
+  }
+
+  const gameData: minimumBoardgame[] = [];
+  const foundGames = parsedXML.querySelectorAll("boardgame");
+
+  foundGames.forEach((game) => {
+    const id = game.getAttribute("objectid");
+
+    if (!id) {
+      return;
+    }
+
+    const titleElement = game.querySelector('name[primary="true"]');
+    const publishedElement = game.querySelector("yearpublished");
+    const title = titleElement ? titleElement.innerHTML : "";
+    const yearPublished = publishedElement ? publishedElement.innerHTML : "";
+
+    gameData.push({
+      id: parseInt(id, 10),
+      title,
+      yearPublished: parseInt(yearPublished, 10),
+    });
+  });
+
+  return gameData;
+};
+
 const BoardgameInput = (props: {
   selectedGame: {
     title: string;
     yearPublished: number;
     id: number;
   };
-  setSelectedGame: Dispatch<
-    SetStateAction<{ title: string; yearPublished: number; id: number }>
-  >;
+  setSelectedGame: Dispatch<SetStateAction<minimumBoardgame>>;
   searchText: string;
   setSearchText: Dispatch<SetStateAction<string>>;
   currentCollection: number[];
 }) => {
   const [listHidden, setListHidden] = useState(true);
   const [activeIndex, setActiveIndex] = useState(-1);
+  let games: minimumBoardgame[] = [];
 
-  let { data: games } = api.boardgame.getGamesByTitle.useQuery({
+  const { data: gamesXML } = api.bgggamedata.getGamesBySearch.useQuery({
     title: props.searchText,
   });
 
-  if ("undefined" === typeof games) {
-    games = [];
+  if (gamesXML) {
+    games = parseGamesXML(gamesXML);
   }
 
   const handleKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
