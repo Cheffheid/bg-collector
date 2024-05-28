@@ -10,13 +10,15 @@ export const boardgameRouter = createTRPCRouter({
   create: privateProcedure
     .input(
       z.object({
-        id: z.number().min(1),
+        id: z.number().gt(0),
+        title: z.string().min(1),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.db.boardgame.create({
         data: {
           id: input.id,
+          title: input.title,
         },
       });
     }),
