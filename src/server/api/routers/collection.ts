@@ -6,6 +6,7 @@ export const collectionRouter = createTRPCRouter({
     .input(
       z.object({
         gameId: z.number().gt(0),
+        title: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -15,16 +16,28 @@ export const collectionRouter = createTRPCRouter({
         },
         update: {
           games: {
-            connect: {
-              id: input.gameId,
+            connectOrCreate: {
+              where: {
+                id: input.gameId,
+              },
+              create: {
+                id: input.gameId,
+                title: input.title,
+              },
             },
           },
         },
         create: {
           ownerId: ctx.currentUser,
           games: {
-            connect: {
-              id: input.gameId,
+            connectOrCreate: {
+              where: {
+                id: input.gameId,
+              },
+              create: {
+                id: input.gameId,
+                title: input.title,
+              },
             },
           },
         },
