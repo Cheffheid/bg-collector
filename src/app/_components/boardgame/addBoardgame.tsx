@@ -44,7 +44,10 @@ export function AddBoardgame() {
         e.preventDefault();
 
         if (selectedGame.id && 0 !== selectedGame.id) {
-          addBoardgame.mutate({ gameId: selectedGame.id });
+          addBoardgame.mutate({
+            gameId: selectedGame.id,
+            title: selectedGame.title,
+          });
         }
       }}
     >
