@@ -91,10 +91,10 @@ const parseGamesXML = (gamesXML: string) => {
       return;
     }
 
-    const titleElement = game.querySelector('name[primary="true"]');
+    const titleElement = game.querySelector("name");
     const publishedElement = game.querySelector("yearpublished");
     const title = titleElement ? titleElement.innerHTML : "";
-    const yearPublished = publishedElement ? publishedElement.innerHTML : "";
+    const yearPublished = publishedElement ? publishedElement.innerHTML : "0";
 
     gameData.push({
       id: parseInt(id, 10),
@@ -258,7 +258,8 @@ const BoardgameInput = (props: {
                   : "cursor-pointer p-1 aria-selected:bg-indigo-200 aria-selected:text-neutral-950"
               }
             >
-              {game.title} ({game.yearPublished})
+              {game.title}{" "}
+              {0 !== game.yearPublished && `(${game.yearPublished})`}
               {props.currentCollection.includes(game.id) && " (Already added)"}
             </li>
           ))}
