@@ -1,6 +1,7 @@
 import { boardgameRouter } from "~/server/api/routers/boardgame";
 import { createTRPCRouter } from "~/server/api/trpc";
 import { collectionRouter } from "./routers/collection";
+import { bggGameDataRouter } from "./routers/bgggamedata";
 
 /**
  * This is the primary router for your server.
@@ -10,6 +11,7 @@ import { collectionRouter } from "./routers/collection";
 export const appRouter = createTRPCRouter({
   boardgame: boardgameRouter,
   collection: collectionRouter,
+  bgggamedata: bggGameDataRouter,
 });
 
 // export type definition of API
