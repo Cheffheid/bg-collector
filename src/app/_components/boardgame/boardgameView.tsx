@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { api } from "~/trpc/react";
 import type { RouterOutputs } from "~/trpc/shared";
 
@@ -15,14 +16,19 @@ export const BoardgameView = (props: Boardgame) => {
   });
 
   return (
-    <div key={id} className="flex gap-3 border-b border-slate-400 p-4">
+    <Link
+      key={id}
+      href={`/game/${id}`}
+      className="flex gap-3 border-b border-slate-400 p-4 focus-within:bg-slate-200 hover:cursor-pointer hover:bg-slate-200"
+    >
       <div className="flex w-full justify-between">
         {title}
         <button
           type="button"
-          className="font-bold text-rose-600"
+          className="font-bold text-rose-600 hover:text-rose-800 focus:text-rose-800"
           aria-label={`Remove ${title}`}
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             removeBoardgame.mutate({ gameId: id });
           }}
         >
@@ -42,6 +48,6 @@ export const BoardgameView = (props: Boardgame) => {
           </svg>
         </button>
       </div>
-    </div>
+    </Link>
   );
 };
