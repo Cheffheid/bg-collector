@@ -64,7 +64,7 @@ export function AddBoardgame() {
           className="absolute right-[1px] bg-slate-50 px-10 py-[6px] font-semibold transition hover:bg-slate-600 hover:text-white focus:bg-slate-600 focus:text-white"
           disabled={addBoardgame.isLoading}
         >
-          {addBoardgame.isLoading ? "Submitting..." : "Add"}
+          {addBoardgame.isLoading ? "Adding..." : "Add"}
         </button>
       </div>
     </form>
